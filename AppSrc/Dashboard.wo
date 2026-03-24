@@ -1,13 +1,14 @@
-﻿#HEADER
+﻿/*
+#HEADER
     Use zPreCompWebAppProject.pkg
 #ENDHEADER    
-
+*/
 //-------
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
 // Add  Use <DataDictionary>.pkg 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-Object oDashboard is a zcWebView
+Object oDashboard is a cWebView
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  
     // Add a DDO Structure 
@@ -40,10 +41,10 @@ Object oDashboard is a zcWebView
             Set peActionDisplay to adBoth 
         End_Object
 
-        Object oHelp is a zcWebMenuItem_Help
+        Object oHelp is a cWebMenuItem
         End_Object
 
-        Object oLogout is a zcWebMenuItemLogout 
+        Object oLogout is a cWebMenuItem 
         End_Object
     End_Object 
     
@@ -182,7 +183,7 @@ Object oDashboard is a zcWebView
                 End_Procedure
                 
             End_Object             
-            Object oWebTile_ContextMenu is a zcWebTile_ContextMenu 
+            Object oWebTile_ContextMenu is a cWebContextMenu 
             End_Object
         End_Object
     

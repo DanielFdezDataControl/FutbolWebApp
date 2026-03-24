@@ -4,9 +4,12 @@ Use cWebForm.pkg
 Use cWebGroup.pkg
 Use cWebMenuGroup.pkg 
 Use cWebMenuItem.pkg
+Use cli.pkg
+
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use centrenadorDataDictionary.dd
+
 
 Object oZoomEntrenador is a cWebView
 
@@ -41,6 +44,115 @@ Object oZoomEntrenador is a cWebView
         
         // place controls here
         // Your view will grow as controls are added
+        Object obuttonDespedir is a cWebButton
+            Set piColumnSpan to 2
+            Set piColumnIndex to 0
+            Set psCaption to "Despedir" 
+
+            Procedure OnClick
+                Forward Send OnClick
+                
+                String sEquipo
+                
+                WebGet psValue of oEquipo_Form to sEquipo
+                //If (sEquipo <> "") ;
+                    Send DDSetChangedValue of oEquipo_Form "Real Madrid"
+            End_Procedure
+            
+              
+        End_Object
+        
+        
+        Object oButtonGet is a cWebButton
+            Set piColumnSpan to 1
+            Set piColumnIndex to 6
+            Set psCaption to "¿?"
+
+            Procedure OnClick
+                Forward Send OnClick
+                
+                Boolean bAttribValue
+                Integer iNumDrivers iDriver iNumServers iServer iResult
+                Handle hDataBase
+                String sCurrentDriver sServer
+                
+                // averiguar el driver de odbc_drv
+                Get_Attribute DF_NUMBER_DRIVERS to iNumDrivers
+                For iDriver from 1 to iNumDrivers
+                    Get_Attribute DF_DRIVER_NAME of iDriver to sCurrentDriver
+                    If (Uppercase(sCurrentDriver) = "ODBC_DRV") ;
+                        Move iDriver to iResult                        
+                Loop
+                
+                Move iResult to iDriver             
+                
+                // averiguar el manejador de la BD
+                If (iDriver <> 0) Begin
+                    Get_Attribute DF_DRIVER_NUMBER_SERVERS of iDriver to iNumServers
+                    
+                    For iServer from 1 to iNumServers
+                        Get_Attribute DF_DRIVER_SERVER_NAME of iDriver iServer to sServer
+                        If (sServer = "DFCONNID=DB_Futbol") ;
+                         Move iServer to iResult
+                    Loop
+                    
+                    Move iResult to iServer
+                End
+                Get_Attribute DF_DATABASE_ID of iDriver iServer to hDataBase
+                
+                // con el driver de conexión y el manejador de la bd obtengo el atributo default nullable numeric.
+                Get_Attribute DF_DATABASE_DEFAULT_NULLABLE_NUMERIC of iDriver hDataBase to bAttribValue
+                
+                
+                Send ShowInfoBox "Default nullable numeric: " (If(bAttribValue, "YES", "NO"))
+            End_Procedure
+            
+                
+        End_Object
+        
+        Object oButtonSetTrue is a cWebButton
+            Set piColumnSpan to 1
+            Set piColumnIndex to 7
+            Set psCaption to "True"
+
+            Procedure OnClick
+                Forward Send OnClick
+                
+                Boolean bAttribValue
+                Integer iNumDrivers iDriver iNumServers iServer iResult
+                Handle hDataBase
+                String sCurrentDriver sServer
+                
+                // averiguar el driver de odbc_drv
+                Get_Attribute DF_NUMBER_DRIVERS to iNumDrivers
+                For iDriver from 1 to iNumDrivers
+                    Get_Attribute DF_DRIVER_NAME of iDriver to sCurrentDriver
+                    If (Uppercase(sCurrentDriver) = "ODBC_DRV") ;
+                        Move iDriver to iResult                        
+                Loop
+                
+                Move iResult to iDriver             
+                
+                // averiguar el manejador de la BD
+                If (iDriver <> 0) Begin
+                    Get_Attribute DF_DRIVER_NUMBER_SERVERS of iDriver to iNumServers
+                    
+                    For iServer from 1 to iNumServers
+                        Get_Attribute DF_DRIVER_SERVER_NAME of iDriver iServer to sServer
+                        If (sServer = "DFCONNID=DB_Futbol") ;
+                         Move iServer to iResult
+                    Loop
+                    
+                    Move iResult to iServer
+                End
+                Get_Attribute DF_DATABASE_ID of iDriver iServer to hDataBase
+                
+                // con el driver de conexión y el manejador de la bd obtengo el atributo default nullable numeric.
+                Set_Attribute DF_DATABASE_DEFAULT_NULLABLE_NUMERIC of iDriver hDataBase to True
+
+            End_Procedure             
+        End_Object
+        
         
         Object oNombre_Form is a cWebForm
             Entry_Item entrenador.Nombre
@@ -78,6 +190,7 @@ Object oZoomEntrenador is a cWebView
                 Set psLabel to "Equipo"
                 Set peLabelPosition to lpTop
                 Set pbPromptButton to True
+                Set pbReadOnly to True
                 
                 WebRegisterPath ntNavigateForward oSelectEquipo
                 
@@ -87,15 +200,6 @@ Object oZoomEntrenador is a cWebView
                     Send NavigatePath    
                 End_Procedure
                                
-            End_Object
-            
-            Object oLiga_Form is a cWebForm
-                Entry_Item liga.Nombre                                
-                Set piColumnSpan to 6
-                Set piColumnIndex to 6
-                Set psLabel to "Pais del equipo"
-                Set peLabelPosition to lpTop
-                Set pbReadOnly to True               
             End_Object
             
         End_Object
@@ -111,7 +215,7 @@ Object oZoomEntrenador is a cWebView
             Set psCaption to C_$Save
             Set psCSSClass to "WebSaveMenuItem"
         
-            Procedure OnClick
+            Procedure OnClick                                    
                 Send Request_Save
             End_Procedure
         End_Object

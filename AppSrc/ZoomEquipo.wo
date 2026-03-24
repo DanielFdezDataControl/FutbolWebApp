@@ -120,13 +120,7 @@ Object oZoomEquipo is a cWebView
             Set psCSSClass to "WebSaveMenuItem"
         
             Procedure OnClick
-                //
-                //
-                If (bOk) ;
-                    Send Request_Save
-                Else ;
-                    Send ShowInfoBox "Error"    
-                
+                    Send Request_Save                  
             End_Procedure
         End_Object
         
