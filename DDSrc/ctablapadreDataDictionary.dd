@@ -1,0 +1,36 @@
+﻿Use DataDict.pkg
+
+Open tablapadre
+Open tablahijo
+
+Object oSexoTablaPadre is a CodeValidationTable
+    Set Type_Value to "SEXO"
+End_Object
+
+Class ctablapadreDataDictionary is a DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to tablapadre.File_Number
+        
+        //------
+        // relación soft con tabla hijo
+        Set Add_Client_File to tablahijo.File_Number
+        //------
+
+        Set Foreign_Field_Option DD_KEYFIELD    DD_NOPUT        to True
+        Set Foreign_Field_Option DD_KEYFIELD    DD_FINDREQ      to True
+
+        // no permite cambiar el valor en el record
+        Set Foreign_Field_Option DD_INDEXFIELD  DD_NOPUT        to True
+        // hace una búsqueda en la tabla y actualiza los deos, si no la encuentra a null
+        Set Foreign_Field_Option DD_INDEXFIELD  DD_AUTOFIND     to True
+        // busca en la tabla y si no es valor válido o null no lo permite.(null tampoco si no está en autofind también)
+        Set Foreign_Field_Option DD_INDEXFIELD  DD_FINDREQ      to True
+        
+        Set Foreign_Field_Option DD_DEFAULT     DD_DISPLAYONLY  to True
+
+        Set Field_Value_Table Field tablapadre.Sexo to oSexoTablaPadre
+    End_Procedure
+
+End_Class

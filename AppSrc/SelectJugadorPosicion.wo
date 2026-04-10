@@ -9,14 +9,18 @@ Use cWebForm.pkg
 Use cWebColumnButton.pkg
 
 Use cjugadorDataDictionary.dd
-
 Use cposicionDataDictionary.dd
 Use cjugadorposicionDataDictionary.dd
 
 Object oSelectJugadorPosicion is a cWebView
 
     // Your DDO structure will go here
+        
     Object oJugadorDD is a cjugadorDataDictionary
+        //Set DDO_Server to oEquipoDD
+        
+        //Set pbUseDDRelates to True
+        Send Remove_Server_File equipo.File_Number
     End_Object
     
     Object oPosicionDD is a cposicionDataDictionary
@@ -58,15 +62,68 @@ Object oSelectJugadorPosicion is a cWebView
         Set pbShowLabel to True
         Set peLabelPosition to lpTop
 
-
-        // place web column controls controls here.
-
         Object oPosicionNombre_Col is a cWebColumn
             Entry_Item posicion.Nombre
             Set psCaption to "Posición"
             Set peAlign to alignLeft
         End_Object  
-    End_Object       
+    End_Object
+
+    Object oQuitarPos_Btn is a cWebButton
+        Set piColumnSpan to 1
+        Set piColumnIndex to 5
+        Set psCaption to "<-"
+    
+        Procedure OnClick
+          String sCurRi 
+          RowID riCurRi
+          WebGet psCurrentRowId of oPosicionesJugador_List to sCurRi
+          Move (DeserializeRowID(sCurRi)) to riCurRi
+          
+          If (not(IsNullRowID(riCurRi))) Begin
+            Send Request_Delete of oJugadorPosicionDD
+            Send RefreshListFromDD of oPosicionesJugador_List
+          End
+        End_Procedure
+    End_Object
+    
+    Object oAnadirPos_Btn is a cWebButton
+        Set piColumnSpan to 1
+        Set piColumnIndex to 6
+        Set psCaption to "->"
+    
+        Procedure OnClick
+            String sCurRi
+            RowID riCurRi
+            Integer iPosicionID, iJugadorID, iTempJugID, iTempPosID
+            Boolean bFound
+
+            Get Field_Current_Value of oPosicionesTotalesDD Field posicion.ID to iPosicionID
+            Get Field_Current_Value of oJugadorDD           Field jugador.ID  to iJugadorID
+                        
+            Send Request_Clear  of oJugadorPosicionDD
+            Move iPosicionID    to jugadorposicion.PosicionID
+            Move iJugadorID     to jugadorposicion.JugadorID 
+            Send Request_Find   of oJugadorPosicionDD EQ jugadorposicion.File_Number 2
+            Move Found          to bFound
+            
+            If (bFound) Begin
+                Send ShowInfoBox "Posición ya asignada"
+            End
+            Else Begin                                
+                Send Request_Clear of oPosicionDD
+                Move iPosicionID to posicion.ID
+                Send Request_Find of oPosicionDD EQ posicion.File_Number 1
+                Move Found to bFound
+                If (bFound) ;                                               
+                    Send Request_Save of oJugadorPosicionDD                    
+                Else ;
+                    Send ShowInfoBox "Posición no encontrada"
+                
+                Send RefreshListFromDD of oPosicionesJugador_List    
+            End                           
+        End_Procedure
+    End_Object
     
     Object oPosicionesJugador_List is a cWebList
         Set pbFillHeight to True
@@ -79,9 +136,7 @@ Object oSelectJugadorPosicion is a cWebView
         Set psLabel to "Posiciones del jugador"
         Set pbShowLabel to True
         Set peLabelPosition to lpTop
-
-        // place web column controls controls here.
-
+                        
         Object oPosicionNombre_Col is a cWebColumn
             Entry_Item posicion.Nombre
             Set psCaption to "Posición"

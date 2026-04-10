@@ -162,6 +162,28 @@ Object oWebApp is a cWebApp
                                 Send NavigatePath
                         End_Procedure
                     End_Object
+
+                    Object oSelectTablaPadreItem1 is a cWebMenuItem
+                        Set psCaption to "SelectTablaPadre"
+
+                        WebRegisterPath ntNavigateBegin oSelectTablaPadre
+
+                        Procedure OnClick
+                            Forward Send OnClick
+                                Send NavigatePath
+                        End_Procedure
+                    End_Object
+
+                    Object oSelectTablaHijoItem1 is a cWebMenuItem
+                        Set psCaption to "SelectTablaHijo"
+
+                        WebRegisterPath ntNavigateBegin oSelectTablaHijo
+
+                        Procedure OnClick
+                            Forward Send OnClick
+                                Send NavigatePath
+                        End_Procedure
+                    End_Object
                 End_Object
 
                 Object oSignOut_itm is a cWebMenuItem
@@ -243,6 +265,7 @@ Object oWebApp is a cWebApp
     Use WebResourceManager.wo
     
     Use Dashboard.wo
+    
     Use SelectLiga.wo
     Use ZoomLiga.wo
     Use SelectEquipo.wo
@@ -255,6 +278,7 @@ Object oWebApp is a cWebApp
     Use SelectJugador.wo
     Use ZoomJugador.wo
     Use SelectJugadorPosicion.wo
+    
     Use ZoomNieto.wo
     Use ZoomHijoJugador.wo
     Use SelectHijoJugador.wo
@@ -262,6 +286,11 @@ Object oWebApp is a cWebApp
     Use SelectHijoEntrenador.wo
     Use ZoomNietoDeHijos.wo
     Use SelectNietoDeHijos.wo
+    
+    Use ZoomTablaPadre.wo
+    Use SelectTablaPadre.wo
+    Use ZoomTablaHijo.wo
+    Use SelectTablaHijo.wo
     
     //-----
     Set phoDefaultView to oDashboard

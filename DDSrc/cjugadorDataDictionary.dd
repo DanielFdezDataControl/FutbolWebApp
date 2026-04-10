@@ -21,4 +21,21 @@ Class cjugadorDataDictionary is a DataDictionary
 
     End_Procedure
 
+    Procedure Backout
+        Forward Send Backout
+    End_Procedure
+
+    Procedure Update
+        Forward Send Update
+    End_Procedure
+
+    Procedure Save_Main_File
+        Forward Send Save_Main_File
+        Integer iJug iPos
+        Move jugadorposicion.JugadorID to iJug
+        Move jugadorposicion.PosicionID to iPos
+    End_Procedure
+    
+    
+
 End_Class

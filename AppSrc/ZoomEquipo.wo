@@ -13,6 +13,14 @@ Use cposicionDataDictionary.dd
 
 Object oZoomEquipo is a cWebView
 
+    Set piColumnCount   to 12
+    Set piMaxWidth      to 1024
+    Set psCaption to "ZoomEquipo"
+    Set peWebViewStyle to wvsDrillDown
+    Set peViewType to vtZoom
+    Set pbShowCaption to False
+    Set Verify_Save_msg to 0 // don't confirm saves
+
     // Your DDO structure will go here
     Object oLigaDD is a cligaDataDictionary
     End_Object
@@ -41,14 +49,6 @@ Object oZoomEquipo is a cWebView
     Set Main_DD to oEquipoDD
     Set Server to oEquipoDD
     
-    Set peWebViewStyle to wvsDrillDown
-    Set peViewType to vtZoom
-    Set pbShowCaption to False
-    Set Verify_Save_msg to 0 // don't confirm saves
-    Set psCaption to "ZoomEquipo"
-
-    Set piMaxWidth to 1024
-    Set piColumnCount to 12
 
     Object oWebMainPanel is a cWebPanel
         Set piColumnCount to 12
@@ -68,16 +68,18 @@ Object oZoomEquipo is a cWebView
         Object oDetalles_Group is a cWebGroup
             Set piColumnCount to 12
             Set piColumnSpan to 12
-            Set psCaption to "Detalles"
+            Set psCaption to "Liga a la q pertenece"
         
             WebSetResponsive piColumnCount rmMobile to 1
             
             Object oLiga_Form is a cWebForm
                 Entry_Item liga.Nombre
-                Set piColumnSpan to 6
-                Set psLabel to "Liga"
-                Set peLabelPosition to lpTop
-                Set pbPromptButton to True
+                Set piColumnSpan        to 6
+                Set psLabel             to "Liga"
+                Set peLabelPosition     to lpTop
+                //Set pbReadOnly          to True
+
+                Set pbPromptButton      to True
                 
                 WebRegisterPath ntNavigateForward oSelectLiga
                 
@@ -86,28 +88,28 @@ Object oZoomEquipo is a cWebView
                     
                     Send NavigatePath
                 End_Procedure                
-                
+                   
             End_Object
             
             Object oPais_Form is a cWebForm
                 Entry_Item liga.Pais
-                Set piColumnSpan to 6
+                Set piColumnSpan to 3
                 Set piColumnIndex to 6
                 Set psLabel to "Pais"
                 Set peLabelPosition to lpTop
+                //Set pbReadOnly to True
+            End_Object
+            
+            Object oNumEquipos_Form is a cWebForm
+                Entry_Item liga.Equipos
+                Set piColumnSpan to 3
+                Set piColumnIndex to 9
+                Set psLabel to "Núm equipos"
+                Set peLabelPosition to lpTop
                 Set pbReadOnly to True
             End_Object
-        End_Object // oDetalles_Group
-        
-        Object oPlantilla_Group is a cWebGroup
-            Set piColumnCount to 12
-            Set piColumnSpan to 12
-            Set psCaption to "Plantilla"
-            
-            WebSetResponsive piColumnCount rmMobile to 1
-            
-        End_Object // oPlantilla_Group
-        
+
+        End_Object // oDetalles_Group        
     End_Object 
     
     // add action menu items here
@@ -120,7 +122,15 @@ Object oZoomEquipo is a cWebView
             Set psCSSClass to "WebSaveMenuItem"
         
             Procedure OnClick
-                    Send Request_Save                  
+                Boolean bErr                                
+                
+                Get Request_Validate of oEquipoDD to bErr
+                If (not (bErr)) Begin
+                    Send Request_Save
+                    Move Err to bErr
+                    If (bErr) ;
+                        Send Request_Find of oEquipoDD EQ equipo.File_Number 1                              
+                End
             End_Procedure
         End_Object
         

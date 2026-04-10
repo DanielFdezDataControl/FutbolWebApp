@@ -16,34 +16,20 @@ Class centrenadorDataDictionary is a DataDictionary
         Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
         Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
         Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+        Set Key_Field_State Field entrenador.ID to True
+
+        Set Field_Option Field entrenador.Nombre DD_REQUIRED to True
         //------
 
     End_Procedure
- 
-    Procedure OnSaveRecord
-        Forward Send OnSaveRecord
-        Integer iEquipoID
-        Boolean bIsNullable
-        
-        Move entrenador.EquipoID to iEquipoID        
-        Get_Attribute DF_FIELD_NULL_ALLOWED of entrenador.File_Number 5 to bIsNullable
-        If (iEquipoID = 0 and bIsNullable) ;
-            Set_Attribute DF_FIELD_IS_NULL of entrenador.File_Number 5 to True
+
+    
+    Procedure Attach_Main_File
+        Forward Send Attach_Main_File
+     
+        If (entrenador.EquipoID = 0) ;
+            Set_Attribute DF_FIELD_IS_NULL of entrenador.File_Number (RefTable(entrenador.EquipoID)) to True
     End_Procedure
-
-    Procedure Update
-        Forward Send Update
-        Integer iEquipoID
-        Move entrenador.EquipoID to iEquipoID
-    End_Procedure
-
-    Function Validate_Save Returns Integer
-        Integer iRetVal
-        Forward Get Validate_Save to iRetVal
-        Integer iEquipoID
-        Move entrenador.EquipoID to iEquipoID
-        
-        Function_Return iRetVal
-    End_Function    
-
+    
 End_Class

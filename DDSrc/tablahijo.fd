@@ -1,0 +1,5 @@
+#REPLACE FILE10 tablahijo
+#REPLACE tablahijo.File_Number |CI10
+#REPLACE tablahijo.ID |FN10,1
+#REPLACE tablahijo.Name |FS10,2
+#REPLACE tablahijo.PadreID |FN10,3

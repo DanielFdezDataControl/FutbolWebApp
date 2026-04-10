@@ -1,0 +1,5 @@
+#REPLACE FILE11 tablapadre
+#REPLACE tablapadre.File_Number |CI11
+#REPLACE tablapadre.ID |FN11,1
+#REPLACE tablapadre.Name |FS11,2
+#REPLACE tablapadre.Sexo |FS11,3

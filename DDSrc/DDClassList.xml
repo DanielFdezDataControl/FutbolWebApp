@@ -101,6 +101,28 @@
 			</DDClasses>
 		</Table>
 		<Table>
+			<tableNumber>10</tableNumber>
+			<tableName>tablahijo</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>ctablahijoDataDictionary</className>
+					<classFile>ctablahijoDataDictionary.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
+			<tableNumber>11</tableNumber>
+			<tableName>tablapadre</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>ctablapadreDataDictionary</className>
+					<classFile>ctablapadreDataDictionary.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
 			<tableNumber>263</tableNumber>
 			<tableName>WebAppSession</tableName>
 			<DDClasses>
