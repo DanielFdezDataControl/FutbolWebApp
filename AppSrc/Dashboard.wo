@@ -65,7 +65,9 @@ Object oDashboard is a cWebView
             Set piColumnCount to 24
             
             Set psCSSClass to "TilesGroup"
-    
+            //------
+            // Primera línea
+            //------
             Object oLigas_Tile is a cWebHtmlBox
                 Set pbServerOnClick to True
                 Set piColumnSpan to 4
@@ -219,6 +221,54 @@ Object oDashboard is a cWebView
                 
             End_Object
             
+            //------
+            // CUARTA LINEA
+            //------ 
+            Object oArbitro_Tile is a cWebHtmlBox
+                Set pbServerOnClick to True
+                Set piColumnSpan to 4
+                Set piColumnIndex to 2
+                Set psCSSClass to "Tile LightAlternate"
+                Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Árbitros</div><div class="Tile_Subtitle"></div></div>'
+                                
+                WebRegisterPath ntNavigateForwardCustom oSelectArbitro
+                
+                Procedure OnClick String sId String sParam
+                    Send NavigatePath
+                End_Procedure
+                
+            End_Object                
+            
+            Object oLinier_Tile is a cWebHtmlBox
+                Set pbServerOnClick to True
+                Set piColumnSpan to 4
+                Set piColumnIndex to 6
+                Set psCSSClass to "Tile LightAlternate"
+                Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Linieres</div><div class="Tile_Subtitle"></div></div>'
+                                
+                WebRegisterPath ntNavigateForwardCustom oSelectLinier
+                
+                Procedure OnClick String sId String sParam
+                    Send NavigatePath
+                End_Procedure
+                
+            End_Object
+            
+            
+            Object oFederacion_Tile is a cWebHtmlBox
+                Set pbServerOnClick to True
+                Set piColumnSpan to 4
+                Set piColumnIndex to 10
+                Set psCSSClass to "Tile LightAlternate"
+                Set psHtml to '<div class="WebCon_Sizer" data-ServerOnClick="openview"><div Class="Tile_Title">Federaciones</div><div class="Tile_Subtitle"></div></div>'
+                                
+                WebRegisterPath ntNavigateForwardCustom oSelectFederacion
+                
+                Procedure OnClick String sId String sParam
+                    Send NavigatePath
+                End_Procedure
+                
+            End_Object            
             //------
             // Context Menu
             //------  

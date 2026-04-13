@@ -184,6 +184,28 @@ Object oWebApp is a cWebApp
                                 Send NavigatePath
                         End_Procedure
                     End_Object
+
+                    Object oSelectFederacionItem1 is a cWebMenuItem
+                        Set psCaption to "SelectFederacion"
+
+                        WebRegisterPath ntNavigateBegin oSelectFederacion
+
+                        Procedure OnClick
+                            Forward Send OnClick
+                                Send NavigatePath
+                        End_Procedure
+                    End_Object
+
+                    Object oSelectArbitroItem1 is a cWebMenuItem
+                        Set psCaption to "SelectArbitro"
+
+                        WebRegisterPath ntNavigateBegin oSelectArbitro
+
+                        Procedure OnClick
+                            Forward Send OnClick
+                                Send NavigatePath
+                        End_Procedure
+                    End_Object
                 End_Object
 
                 Object oSignOut_itm is a cWebMenuItem
@@ -291,6 +313,12 @@ Object oWebApp is a cWebApp
     Use SelectTablaPadre.wo
     Use ZoomTablaHijo.wo
     Use SelectTablaHijo.wo
+    Use ZoomFederacion.wo
+    Use SelectFederacion.wo
+    Use ZoomArbitro.wo
+    Use SelectArbitro.wo
+    Use Zoomlinier.wo
+    Use SelectLinier.wo
     
     //-----
     Set phoDefaultView to oDashboard

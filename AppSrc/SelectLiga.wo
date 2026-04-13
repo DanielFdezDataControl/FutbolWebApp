@@ -11,6 +11,12 @@ Use cligaDataDictionary.dd
 
 Object oSelectLiga is a cWebView
 
+    Set psCaption to "SelectLiga"
+    Set peWebViewStyle to wvsDrillDown
+    Set peViewType to vtSelect
+    Set pbShowCaption to False
+    Set piMaxWidth to 1024
+    Set piColumnCount to 6
     // Your DDO structure will go here
     Object oLigaDD is a cligaDataDictionary
     End_Object
@@ -18,23 +24,15 @@ Object oSelectLiga is a cWebView
     Set Main_DD to oLigaDD
     Set Server to oLigaDD
 
-    Set peWebViewStyle to wvsDrillDown
-    Set peViewType to vtSelect
-    Set pbShowCaption to False
-    Set psCaption to "SelectLiga"
-
-    Set piMaxWidth to 1024
-    Set piColumnCount to 6
-
     WebSetResponsive piColumnCount rmTabletPortrait to 3
 
     Object oList is a cWebList
+        Set psCSSClass to "MobileList"
+        Set pbShowHeader to True
+        Set piSortColumn to 0 // set this to allow for searching
         Set pbFillHeight to True
         Set piColumnSpan to 0
         Set pbServerOnRowClick to True
-        Set psCSSClass to "MobileList"
-        Set piSortColumn to 0 // set this to allow for searching
-        Set pbShowHeader to True
 
         // place web column controls controls here.
 
@@ -68,7 +66,7 @@ Object oSelectLiga is a cWebView
             Set pbResizable to False
             Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
             Set peAlign to alignRight
-            Set piListRowSpan to 2
+            Set piListRowSpan to 1
 	    
             WebRegisterPath ntNavigateForward oZoomLiga
 

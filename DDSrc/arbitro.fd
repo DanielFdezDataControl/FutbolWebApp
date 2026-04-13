@@ -1,0 +1,6 @@
+#REPLACE FILE13 arbitro
+#REPLACE arbitro.File_Number |CI13
+#REPLACE arbitro.ID |FN13,1
+#REPLACE arbitro.Name |FS13,2
+#REPLACE arbitro.FederacionID |FN13,3
+#REPLACE arbitro.UserID |FN13,4

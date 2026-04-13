@@ -1,0 +1,6 @@
+#REPLACE FILE14 linier
+#REPLACE linier.File_Number |CI14
+#REPLACE linier.ID |FN14,1
+#REPLACE linier.Name |FS14,2
+#REPLACE linier.FederacionID |FN14,3
+#REPLACE linier.UserID |FN14,4

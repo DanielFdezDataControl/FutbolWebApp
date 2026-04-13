@@ -1,0 +1,304 @@
+﻿// C:\Local.DF25.projects\FutbolWebApp\AppSrc\ZoomFederacion.wo
+// ZoomFederacion
+//
+
+Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebMenuGroup.pkg
+Use cWebMenuItem.pkg
+Use cWebForm.pkg
+
+Use cfederacionDataDictionary.dd
+Use cWebAppUserDataDictionary.dd
+Use carbitroDataDictionary.dd
+Use clinierDataDictionary.dd
+
+Object oZoomFederacion is a cWebView
+    Set piColumnCount to 12
+    Set psCaption to "ZoomFederacion"
+    Set peWebViewStyle to wvsDrilldown
+    Set peViewType to vtZoom
+    Set pbShowCaption to False
+    Set Verify_Save_Msg to 0
+    Set piMaxWidth to 1024
+
+    Object oWebAppUser_DD is a cWebAppUserDataDictionary
+    End_Object
+
+    Object ofederacion_DD is a cfederacionDataDictionary
+    End_Object 
+
+    Object oLinier_DD is a clinierDataDictionary
+        Set DDO_Server to oWebAppUser_DD
+        Set DDO_Server to ofederacion_DD
+        
+        Set Constrain_file to federacion.File_number
+    End_Object
+
+    Object oArbitro_DD is a carbitroDataDictionary
+        Set DDO_Server to oWebAppUser_DD
+        Set DDO_Server to ofederacion_DD
+        
+        Set Constrain_file to federacion.File_number
+    End_Object
+
+    Set Main_DD To ofederacion_DD
+    Set Server  To ofederacion_DD
+
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+        WebSetResponsive piColumnCount rmMobile to 4
+
+        Object ofederacionName is a cWebForm
+            Entry_Item federacion.Name
+            Set piColumnSpan to 12
+            Set piColumnIndex to 0
+            Set peLabelPosition to lpTop
+            Set psLabel to "Federación"
+        End_Object 
+        
+        Object oTabContainer is a cWebTabContainer
+            Set pbServerOnCardChange to True
+            Set pbFillHeight to True
+            
+            Object oArbitro_TabPage is a cWebTabPage
+                Set psCaption to "Arbitros"
+                Set piColumnCount to 12
+                
+                Object oAddArbitro_btn is a cWebButton
+                    Set piColumnIndex to 11
+                    Set psCaption to "+"
+                    
+                    WebRegisterPath ntNavigateForward oZoomArbitro
+    
+                    Procedure OnClick
+                        Forward Send OnClick
+                        Send NavigatePath
+                    End_Procedure
+    
+                    Procedure OnGetNavigateForwardData tWebNavigateData  ByRef NavigateData Handle hoToView
+                        Forward Send OnGetNavigateForwardData (&NavigateData) hoToView
+                        Move True to NavigateData.bNewRecord
+                    End_Procedure
+                                    
+                End_Object // oAddArbitro_btn
+
+                Object oArbitros_List is a cWebList
+                    Set Server to oArbitro_DD
+                    
+                    Set pbFillHeight to True
+                    Set piColumnSpan to 0                    
+                    Set psCSSClass to "MobileList"
+                    Set piSortColumn to 0 // set this to allow for searching
+                    Set pbShowHeader to True
+                    
+                    
+                    Object oNameArbitro_Col is a cWebColumn
+                        Entry_Item arbitro.Name
+                        Set psCaption to "Árbitro"                        
+                    End_Object
+                    
+                    Object oNameArbitroUser_Col is a cWebColumn
+                        Entry_Item webappuser.LoginName
+                        Set psCaption to "User"                        
+                    End_Object
+                    
+                    Object oArbitroDetail_Btn is a cWebColumnButton
+                        Set piWidth to 45
+                        Set pbFixedWidth to True
+                        Set pbResizable to False
+                        Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
+                        Set peAlign to alignRight
+                        Set piListRowSpan to 2
+            	    
+                        WebRegisterPath ntNavigateForward oZoomArbitro
+            
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+            
+                        Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                            Move True to NavigateData.bReadOnly
+                        End_Procedure            
+                    End_Object 
+                    
+                End_Object // oArbitros_List                
+            End_Object // oArbitro_TabPage
+            
+            Object oLinier_TabPage is a cWebTabPage 
+                Set psCaption to "Linieres"
+                Set piColumnCount to 12
+                
+                Object oAddLinier_btn is a cWebButton
+                    Set piColumnIndex to 11
+                    Set psCaption to "+"
+                    
+                    WebRegisterPath ntNavigateForward oZoomLinier
+    
+                    Procedure OnClick
+                        Forward Send OnClick
+                        Send NavigatePath
+                    End_Procedure
+    
+                    Procedure OnGetNavigateForwardData tWebNavigateData  ByRef NavigateData Handle hoToView
+                        Forward Send OnGetNavigateForwardData (&NavigateData) hoToView
+                        Move True to NavigateData.bNewRecord
+                    End_Procedure                
+                End_Object  // oAddLinier_btn
+                
+                Object oLinieres_List is a cWebList
+                    Set Server to oLinier_DD
+                    
+                    Set pbFillHeight to True
+                    Set piColumnSpan to 0                    
+                    Set psCSSClass to "MobileList"
+                    Set piSortColumn to 0 // set this to allow for searching
+                    Set pbShowHeader to True                    
+                    
+                    Object oNameLinier_Col is a cWebColumn
+                        Entry_Item linier.Name
+                        Set psCaption to "Linier"                        
+                    End_Object
+                    
+                    Object oNameArbitroUser_Col is a cWebColumn
+                        Entry_Item webappuser.LoginName
+                        Set psCaption to "User"                        
+                    End_Object
+                    
+                    Object oArbitroDetail_Btn is a cWebColumnButton
+                        Set piWidth to 45
+                        Set pbFixedWidth to True
+                        Set pbResizable to False
+                        Set psBtnCssClass to "WebButtonIcon WebIcon_Info"
+                        Set peAlign to alignRight
+                        Set piListRowSpan to 2
+            	    
+                        WebRegisterPath ntNavigateForward oZoomLinier
+            
+                        Procedure OnClick
+                            Send NavigatePath
+                        End_Procedure
+            
+                        Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                            Move True to NavigateData.bReadOnly
+                        End_Procedure
+            
+                    End_Object                    
+                End_Object // oLinier_List                
+            End_Object // oLinier_TabPage
+            
+        End_Object // oTabContainer
+    End_Object // oWebMainPanel
+
+    Object oActionGroup is a cWebMenuGroup
+
+        Object oSaveBtn is a cWebMenuItem
+            Set psCSSClass to "WebSaveMenuItem"
+            Set psCaption to "Save"
+
+            Procedure OnClick
+                Send Request_Save
+            End_Procedure
+
+        End_Object 
+
+        Object oEditBtn is a cWebMenuItem
+            Set psCSSClass to "WebEditMenuItem"
+            Set psCaption to "Edit"
+            Procedure OnClick
+                Send ChangeEditMode True
+                Send SetActionButtons
+            End_Procedure
+
+        End_Object 
+
+        Object oDeleteBtn is a cWebMenuItem
+            Set psCSSClass to "WebDeleteMenuItem"
+            Set psCaption to "Delete"
+            Set peActionDisplay to adMenu
+
+            Procedure OnClick
+                Send Request_Delete
+            End_Procedure
+
+        End_Object 
+
+        Object oCancelChangesBtn is a cWebMenuItem
+            Set psCSSClass to "WebIcon_Refresh"
+            Set psCaption to "Clear Changes"
+            Set peActionDisplay to adMenu
+            Procedure OnClick
+                Send RefreshRecord
+            End_Procedure
+
+        End_Object 
+    End_Object 
+
+    Procedure SetActionButtons
+        tWebNavigateData NavigateData
+        Boolean bHasRecord
+        Handle hoDD
+
+        Get Server to hoDD
+        Get GetNavigateData to NavigateData
+        Get HasRecord of hoDD to bHasRecord
+
+        // let's hide all buttons and then Show the ones we want
+        WebSet pbRender of oEditBtn to False
+        WebSet pbRender of oSaveBtn to False
+        WebSet pbRender of oCancelChangesBtn to False
+        WebSet pbRender of oDeleteBtn to False
+
+        If (NavigateData.bReadOnly) Begin
+            WebSet pbRender of oEditBtn to True
+        End
+        Else Begin
+            WebSet pbRender of oSaveBtn to True
+            WebSet pbRender of oCancelChangesBtn to True
+            WebSet pbRender of oDeleteBtn to bHasRecord
+        End
+    End_Procedure
+
+    Procedure OnViewSaved Handle hoServer Boolean bChanged
+        // Close after save
+        Send NavigateClose Self
+    End_Procedure
+
+    // this will close the view after a delete
+    Procedure OnViewDeleted Handle hoDDO
+        Send NavigateClose Self
+    End_Procedure
+
+    Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        Case Begin
+            Case (NavigateData.eNavigateType = nfFromMain)
+                // If from main, this is a propbably a main file Select to Zoom.
+                Case Break
+
+            Case (NavigateData.eNavigateType = nfFromParent)
+                // If from parent, this is a constrained drill down.
+                Case Break
+
+            Case (NavigateData.eNavigateType = nfFromChild)
+                // If from child, this is a probably a parent Zoom from a Zoom.
+                Case Break
+
+            Case Else // must be nfUndefined
+
+        Case End
+
+        Send SetActionButtons
+
+         If (HasRecord(Server(Self))) Begin 
+            Send SetHeaderCaption    ("Federación:"*federacion.Name)
+            Send SetBreadcrumbCaption federacion.Name
+        End
+        Else Begin 
+            Send SetHeaderCaption     "Nueva federación"
+            Send SetBreadcrumbCaption "Nueva"
+        End
+
+    End_Procedure
+
+End_Object 

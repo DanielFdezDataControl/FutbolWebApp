@@ -123,6 +123,39 @@
 			</DDClasses>
 		</Table>
 		<Table>
+			<tableNumber>12</tableNumber>
+			<tableName>federacion</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>cfederacionDataDictionary</className>
+					<classFile>cfederacionDataDictionary.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
+			<tableNumber>13</tableNumber>
+			<tableName>arbitro</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>carbitroDataDictionary</className>
+					<classFile>carbitroDataDictionary.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
+			<tableNumber>14</tableNumber>
+			<tableName>linier</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>clinierDataDictionary</className>
+					<classFile>clinierDataDictionary.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
 			<tableNumber>263</tableNumber>
 			<tableName>WebAppSession</tableName>
 			<DDClasses>

@@ -1,0 +1,32 @@
+﻿Use DataDict.pkg
+
+Open linier
+Open federacion
+Open webappuser
+
+Class clinierDataDictionary is a DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to linier.File_Number
+
+        Set Add_Server_File to federacion.File_Number
+        Set Add_Server_File to webappuser.File_Number
+
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+
+    End_Procedure
+
+    Procedure Update
+        String sUser
+        Get psLoginName of ghoWebSessionManager to sUser
+        Clear webappuser
+        Move sUser to webappuser.LoginName
+        Find eq webappuser.LoginName
+        
+        Forward Send Update
+    End_Procedure 
+End_Class

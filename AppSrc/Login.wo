@@ -29,7 +29,7 @@ Object oLogin is a cWebView
     
     Object oWarning is a cWebLabel
         Set pbVisible to False
-        Set psCaption to "Invalid User ID or password. \n\rHint: 'admin' & 'admin'."
+        Set psCaption to "Invalid User ID or password. \n\rHint: 'Siempre pwd:'Daniel'."
         Set peAlign to alignCenter
         Set piColumnSpan to 12
         Set psCSSClass to "LoginWarning"

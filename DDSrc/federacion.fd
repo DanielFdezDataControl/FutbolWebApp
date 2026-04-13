@@ -1,0 +1,4 @@
+#REPLACE FILE12 federacion
+#REPLACE federacion.File_Number |CI12
+#REPLACE federacion.ID |FN12,1
+#REPLACE federacion.Name |FS12,2

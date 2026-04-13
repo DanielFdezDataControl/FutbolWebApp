@@ -77,7 +77,7 @@ Object oZoomEquipo is a cWebView
                 Set piColumnSpan        to 6
                 Set psLabel             to "Liga"
                 Set peLabelPosition     to lpTop
-                //Set pbReadOnly          to True
+                Set pbReadOnly          to True
 
                 Set pbPromptButton      to True
                 
@@ -97,7 +97,7 @@ Object oZoomEquipo is a cWebView
                 Set piColumnIndex to 6
                 Set psLabel to "Pais"
                 Set peLabelPosition to lpTop
-                //Set pbReadOnly to True
+                Set pbReadOnly to True
             End_Object
             
             Object oNumEquipos_Form is a cWebForm
