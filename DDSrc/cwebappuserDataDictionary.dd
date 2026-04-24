@@ -20,6 +20,10 @@ Class cwebappuserDataDictionary is a DataDictionary
         Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
         Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
 
+        Set Field_Label_Long Field webappuser.LoginName to "email de usuario"
+        Set Field_Label_Short Field webappuser.LoginName to "email"
+        Set Status_Help Field webappuser.LoginName to "Login name q es el email del usuario"
+
         Set Key_Field_State Field webappuser.ID to True
 
     End_Procedure

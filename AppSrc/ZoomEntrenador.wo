@@ -192,7 +192,7 @@ Object oZoomEntrenador is a cWebView
                 Set psLabel to "Equipo"
                 Set peLabelPosition to lpTop
                 Set pbPromptButton to True
-                Set pbReadOnly to True
+                Set pbReadOnly to False
                 
                 WebRegisterPath ntNavigateForward oSelectEquipo
                 

@@ -88,7 +88,30 @@ Object oZoomEquipo is a cWebView
                     
                     Send NavigatePath
                 End_Procedure                
-                   
+                                    
+                Procedure OnGetNavigateBackData tWebNavigateData  ByRef NavigateData Handle hoBackToView
+                    Forward Send OnGetNavigateBackData (&NavigateData) hoBackToView
+                    
+                    String sViewBack
+                    Get NamedValueAdd NavigateData.NamedValues "fromZoom" (NavigateData.eNavigateType) to NavigateData.NamedValues
+                End_Procedure
+                
+                
+                Procedure OnNavigateBack Handle hoCallback tWebNavigateData NavigateData
+                    // evento de vuelta si viajo desde aquí a seleccionar algo y traerlo. 
+                    // este evento es del OBJETO dentro de la VISTA
+                    Forward Send OnNavigateBack hoCallback NavigateData
+                    String sHola
+                    Move "Hola" to sHola
+                End_Procedure
+
+                Procedure OnGetNavigateForwardData tWebNavigateData  ByRef NavigateData Handle hoToView
+                    // evento de ida si viajo desde aquí a seleccionar algo y traerlo. 
+                    // este evento es del OBJETO dentro de la VISTA
+                    Forward Send OnGetNavigateForwardData (&NavigateData) hoToView
+                    String sHola
+                    Move "Hola" to sHola
+                End_Procedure
             End_Object
             
             Object oPais_Form is a cWebForm
@@ -219,6 +242,10 @@ Object oZoomEquipo is a cWebView
             Case (NavigateData.eNavigateType = nfFromMain)
                 // If from main, this is a probably a main file Select to Zoom.
                 // This is the most typical way to navigate to a zoom.
+                String sInvokingView
+                Get NamedValueGet NavigateData.NamedValues "fromMain" to sInvokingView
+                If (sInvokingView = "oSelectEquipo");
+                    Send ShowInfoBox sInvokingView "Vengo de:"
                 Case Break
                 
             Case (NavigateData.eNavigateType = nfFromParent)
@@ -250,6 +277,17 @@ Object oZoomEquipo is a cWebView
             Send SetHeaderCaption     "Nuevo equipo"
             Send SetBreadcrumbCaption "Nuevo"
         End
+    End_Procedure   
+
+    Procedure OnLoad
+        Forward Send OnLoad
+        String sHola
+        Move "hola" to sHola
     End_Procedure
 
+    Procedure OnShow
+        Forward Send OnShow
+        String sHola
+        Move "hola" to sHola
+    End_Procedure
 End_Object

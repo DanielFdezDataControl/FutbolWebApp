@@ -38,6 +38,7 @@ Object oSelectLiga is a cWebView
 
         Object oNombre_Col is a cWebColumn
             Entry_Item liga.Nombre
+            
             Set psCaption to "Liga"
             Set peAlign to alignLeft
         End_Object 
@@ -72,10 +73,6 @@ Object oSelectLiga is a cWebView
 
             Procedure OnClick
                 Send NavigatePath
-            End_Procedure
-
-            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
-                Move True to NavigateData.bReadOnly
             End_Procedure
 
         End_Object 
@@ -118,9 +115,14 @@ Object oSelectLiga is a cWebView
             Case End
         End_Procedure
 
-        // this makes the zoom view read-only or new or some other customization
-        Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+        Procedure OnGetNavigateBackData tWebNavigateData  ByRef NavigateData Handle hoBackToView
+            Forward Send OnGetNavigateBackData (&NavigateData) hoBackToView
+                                String sHola
+                    Move "Hola" to sHola
         End_Procedure
+
+        // this makes the zoom view read-only or new or some other customization
+
 
     End_Object    
     
@@ -194,7 +196,10 @@ Object oSelectLiga is a cWebView
 
     // Add code to customize your Select View based on how it was invoked.
     // Use NavigateData to determine the context this view will be used in.
+    
     Procedure OnNavigateForward tWebNavigateData NavigateData Integer hoInvokingView Integer hoInvokingObject
+        // evento de LLEGADA 
+        // este evento es de la VISTA
         String sQuienEres
         // if this view is being used in multiple contexts, you may need a block of code
         // like this to handle customizations. This would include hiding rows and buttons
@@ -207,6 +212,7 @@ Object oSelectLiga is a cWebView
                 
             Case (NavigateData.eNavigateType=nfFromChild)
                 // If from child, this is a probably a parent lookup from a Zoom
+                
                 Case Break
                 
             Case (NavigateData.eNavigateType=nfFromMain)
@@ -222,6 +228,36 @@ Object oSelectLiga is a cWebView
         
         Send SetBreadcrumbCaption "Ligas Selección"
         Send SetHeaderCaption     "Ligas"
+        
     End_Procedure
+    
+    
+    Function AllowAccess Returns Boolean
+        Boolean bRetVal
+        Forward Get AllowAccess to bRetVal
+        
+        Integer iUserRights
+        Get piUserRights of ghoWebSessionManager to iUserRights
 
+        
+        Move iUserRights to bRetVal
+        Function_Return bRetVal
+    End_Function
+
+    Procedure OnBeforeShow
+        Forward Send OnBeforeShow
+        
+        //------
+        Integer iUserRights iUserControl
+    
+        Get piUserRights of ghoWebSessionManager to iUserRights
+        Get ControlEdicion to iUserControl
+        Send ShowInfoBox ("en la vista: " + String(iUserRights)) ("en el pkg: " + String(iUserControl))   
+        
+        Boolean bControl
+        Get ControlEdicion to bControl
+        WebSet pbRender of oNewButton to bControl
+        
+        //------        
+    End_Procedure
 End_Object

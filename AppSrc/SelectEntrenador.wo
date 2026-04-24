@@ -19,6 +19,7 @@ Object oSelectEntrenador is a cWebView
     
     Object oEquipoDD is a cequipoDataDictionary
         Set DDO_Server to oLigaDD
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT     to False
     End_Object
     
     Object oEntrenadorDD is a centrenadorDataDictionary

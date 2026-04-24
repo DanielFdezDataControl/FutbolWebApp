@@ -7,5 +7,5 @@
 #REPLACE WebAppSession.LastAccessTime |FS263,5
 #REPLACE WebAppSession.UseCount |FN263,6
 #REPLACE WebAppSession.RemoteAddress |FS263,7
-#REPLACE WebAppSession.LoginName |FS263,8
-#REPLACE WebAppSession.Active |FS263,9
+#REPLACE WebAppSession.Active |FS263,8
+#REPLACE WebAppSession.WebAppUserID |FN263,9

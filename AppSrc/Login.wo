@@ -56,6 +56,17 @@ Object oLogin is a cWebView
         Set psAutoComplete to "username"
     End_Object
     
+    Object oTenant is a cWebForm
+        Set psLabel to "Tenant:"
+        Set peLabelPosition to lpTop
+        Set piMaxLength to 20
+        Set piColumnIndex to 1
+        Set pbShowLabel to False
+        Set psPlaceHolder to "Tenant"
+        Set piColumnSpan to 10
+        Set psAutoComplete to "Tenant"
+    End_Object
+    
     Object oPassword is a cWebForm
         Set psLabel to "Password:"
         Set pbPassword to True
@@ -92,13 +103,15 @@ Object oLogin is a cWebView
     End_Object
     
     Procedure DoLogin
-        String sLoginName sPassword sPrevStateHash
+        String  sLoginName sPassword sPrevStateHash
+        Integer iTenant
         Boolean bResult
         
-        WebGet psValue of oLoginName to sLoginName
-        WebGet psValue of oPassword to sPassword
+        WebGet psValue of oLoginName    to sLoginName
+        WebGet psValue of oTenant       to iTenant
+        WebGet psValue of oPassword     to sPassword
         
-        Get UserLogin of ghoWebSessionManager sLoginName sPassword to bResult
+        Get UserLogin of ghoWebSessionManager sLoginName iTenant sPassword to bResult
         
         If (bResult) Begin
             Send Hide of oLogin
@@ -111,6 +124,7 @@ Object oLogin is a cWebView
             // clear the login values. we don't want to return the login id & password as synchronized properties....
             WebSet psValue of oLoginName to ""
             WebSet psValue of oPassword  to ""
+            WebSet psValue of oTenant    to ""
             WebSet pbVisible of oWarning to False
         End
         Else Begin

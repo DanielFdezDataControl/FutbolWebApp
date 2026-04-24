@@ -1,0 +1,232 @@
+﻿Use cWebView.pkg
+Use cWebPanel.pkg
+Use cWebForm.pkg 
+Use cWebButton.pkg
+
+Object oTestWebProperties is a cWebView
+    Set piWidth to 700
+    Set psCaption to "TestWebProperties"
+    
+    {WebProperty = Client}
+    Property String psValue_Client "Cliente valor 0"
+    
+    {WebProperty = Server}
+    Property String psValue_Server "Servidor valor 0 "
+    
+    {WebProperty = ServerSession}
+    Property String psValue_ServerSession "SSesion valor 0"
+    // Your DDO structure will go here
+
+    Object oWebMainPanel is a cWebPanel
+        Set piColumnCount to 12
+        
+        // place controls here
+        // Your view will grow as controls are added
+        Object oGroupWebProperties_Group is a cWebGroup
+			Set piColumnIndex   to 0					  
+            Set piColumnSpan    to 12
+            Set piColumnCount   to 12
+            Set pbShowBorder    to True
+            Set pbShowCaption   to True
+            Set psCaption       to "Grupo WebProperties" 
+                      
+            Object oForm is a cWebForm
+                Set piColumnSpan to 4
+                Set piColumnIndex to 4
+                Set psLabel to "Valor:"
+                Set psValue to 0 
+                Set pbReadOnly to True       
+            End_Object
+    
+            Object oSumaWeb_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 4
+                Set psCaption to "sumaWeb"
+            
+                Procedure OnClick
+                    Integer iValue
+                    WebGet psValue of oForm to iValue
+                    Increment iValue
+                    WebSet psValue of oForm to iValue
+                End_Procedure
+            End_Object
+    
+            Object oRestWebBtn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 6
+                Set psCaption to "restaWeb"
+            
+                Procedure OnClick
+                    Integer iValue
+                    WebGet psValue of oForm to iValue
+                    Decrement iValue
+                    WebSet psValue of oForm to iValue
+                End_Procedure
+            End_Object
+            
+            Object oSuma_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 4
+                Set psCaption to "suma"
+            
+                Procedure OnClick
+                    Integer iValue
+                    Get psValue of oForm to iValue
+                    Increment iValue
+                    Set psValue of oForm to iValue
+                End_Procedure
+            End_Object
+    
+            Object oRestBtn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 6
+                Set psCaption to "resta"
+            
+                Procedure OnClick
+                    Integer iValue
+                    Get psValue of oForm to iValue
+                    Decrement iValue
+                    Set psValue of oForm to iValue
+                End_Procedure
+            End_Object            
+        End_Object // oGroupWebProperties_Group
+        
+        Object oGroupCustomWebProps_Group is a cWebGroup
+			Set piColumnIndex   to 0					  
+            Set piColumnSpan    to 12
+            Set piColumnCount   to 12
+            Set pbShowBorder    to True
+            Set pbShowCaption   to True
+            Set psCaption       to "Grupo Custom WebProperties" 
+                      
+            Object oPropertyClient_Form is a cWebForm
+                Set piColumnSpan to 6
+                Set piColumnIndex to 2
+                Set psLabel to "Cliente:"
+                Set psValue to "Sin valor" 
+                Set pbReadOnly to True       
+            End_Object
+            
+            Object oPropertyServer_Form is a cWebForm
+                Set piColumnSpan to 6
+                Set piColumnIndex to 2
+                Set psLabel to "Server:"
+                Set psValue to "Sin valor"
+                Set pbReadOnly to True       
+            End_Object
+
+            Object oPropertyServerSession_Form is a cWebForm
+                Set piColumnSpan to 6
+                Set piColumnIndex to 2
+                Set psLabel to "SSession:"
+                Set psValue to "Sin valor" 
+                Set pbReadOnly to True       
+            End_Object 
+            
+            Object oClient_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 2
+                Set psCaption to "Cliente"
+            
+                Procedure OnClick
+                    String sValue
+                    Set psValue_Client of oTestWebProperties to "Cliente Actualizado"
+                    Get psValue_Client of oTestWebProperties to sValue
+                    WebSet psValue of oPropertyClient_Form to sValue
+                End_Procedure
+            End_Object
+    
+            Object oServer_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 4
+                Set psCaption to "Server"
+            
+                Procedure OnClick
+                    String sValue
+                    Set psValue_Server of oTestWebProperties to "Server Actualizado"
+                    Get psValue_Server of oTestWebProperties to sValue
+                    Set psValue of oPropertyServer_Form to sValue
+                End_Procedure
+            End_Object
+            
+            Object oSSession_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 6
+                Set psCaption to "SSession"
+            
+                Procedure OnClick
+                    String sValue
+                    Set psValue_ServerSession of oTestWebProperties to "SSession Actualizado"
+                    Get psValue_ServerSession of oTestWebProperties to sValue
+                    WebSet psValue of oPropertyServerSession_Form to sValue
+                End_Procedure
+            End_Object
+            
+            Object oClientWeb_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 2
+                Set psCaption to "ClienteWeb"
+            
+                Procedure OnClick
+                    String sValue
+                    Integer iContador
+                    WebGet psValue_Client of oTestWebProperties to sValue
+                    
+                    If (sValue = "Cliente Actualizado") Begin
+                        Move 0 to sValue
+                    End
+                    Else Begin
+                        Move (Remove(sValue,0,14)) to sValue                        
+                    End
+                    Move sValue to iContador
+                    Increment iContador
+                    Move ("Cliente Valor " + String(iContador)) to sValue                    
+                    WebSet psValue_Client of oTestWebProperties to sValue
+                    WebSet psValue of oPropertyClient_Form to sValue
+                End_Procedure
+            End_Object
+    
+            Object oServerWeb_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 4
+                Set psCaption to "ServerWeb"
+            
+                Procedure OnClick
+                    String sValue
+                    WebSet psValue_Server of oTestWebProperties to "Server Actualizado"
+                    WebGet psValue_Server of oTestWebProperties to sValue
+                    WebSet psValue of oPropertyServer_Form to sValue
+                End_Procedure
+            End_Object
+            
+            Object oSSessionWeb_Btn is a cWebButton
+                Set piColumnSpan to 2
+                Set piColumnIndex to 6
+                Set psCaption to "SSessionWeb"
+            
+                Procedure OnClick
+                    String sValue
+                    WebSet psValue_ServerSession of oTestWebProperties to "SSession Actualizado"
+                    WebGet psValue_ServerSession of oTestWebProperties to sValue
+                    WebSet psValue of oPropertyServerSession_Form to sValue
+                End_Procedure
+            End_Object            
+        End_Object
+        
+    End_Object // panel
+
+    Procedure OnNavigateForward tWebNavigateData NavigateData Handle hoInvokingView Handle hoInvokingObject
+        Forward Send OnNavigateForward NavigateData hoInvokingView hoInvokingObject
+        String sValue
+        
+        WebGet psValue_Client of oTestWebProperties         to sValue
+        WebSet psValue of oPropertyClient_Form              to sValue
+        
+        WebGet psValue_Server of oTestWebProperties         to sValue
+        WebSet psValue of oPropertyServer_Form              to sValue
+        
+        WebGet psValue_ServerSession of oTestWebProperties  to sValue
+        WebSet psValue of oPropertyServerSession_Form       to sValue
+    End_Procedure
+
+End_Object // webview

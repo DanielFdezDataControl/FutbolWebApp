@@ -206,6 +206,17 @@ Object oWebApp is a cWebApp
                                 Send NavigatePath
                         End_Procedure
                     End_Object
+
+                    Object oTestWebPropertiesItem1 is a cWebMenuItem
+                        Set psCaption to "TestWebProperties"
+
+                        WebRegisterPath ntNavigateBegin oTestWebProperties
+
+                        Procedure OnClick
+                            Forward Send OnClick
+                                Send NavigatePath
+                        End_Procedure
+                    End_Object
                 End_Object
 
                 Object oSignOut_itm is a cWebMenuItem
@@ -319,6 +330,7 @@ Object oWebApp is a cWebApp
     Use SelectArbitro.wo
     Use Zoomlinier.wo
     Use SelectLinier.wo
+    Use TestWebProperties.wo
     
     //-----
     Set phoDefaultView to oDashboard

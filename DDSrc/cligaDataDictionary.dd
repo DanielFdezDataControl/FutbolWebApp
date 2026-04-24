@@ -11,6 +11,14 @@ Class cligaDataDictionary is a DataDictionary
         Set Main_File to liga.File_Number
         
         Set Key_Field_State Field liga.ID   to True
+
+        Set Field_Label_Long Field liga.Nombre to "Nombre de la liga"
+        Set Field_Label_Short Field liga.Nombre to "Liga"
+        Set Status_Help Field liga.Nombre to "El nombre de la liga"
+
+        Set Field_Label_Long Field liga.Pais to "Pais de la liga"
+        Set Field_Label_Short Field liga.Pais to "Pais"
+        Set Status_Help Field liga.Pais to "Pais al que pertenece la liga"
         Set Protect_Key_State               to True
 
         Set Add_Client_File to equipo.File_Number

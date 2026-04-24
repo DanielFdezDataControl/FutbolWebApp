@@ -3,9 +3,10 @@
 Open tablapadre
 Open tablahijo
 
-Object oSexoTablaPadre is a CodeValidationTable
+Object oSexoValidation is a CodeValidationTable
     Set Type_Value to "SEXO"
 End_Object
+
 
 Class ctablapadreDataDictionary is a DataDictionary
     
@@ -30,7 +31,8 @@ Class ctablapadreDataDictionary is a DataDictionary
         
         Set Foreign_Field_Option DD_DEFAULT     DD_DISPLAYONLY  to True
 
-        Set Field_Value_Table Field tablapadre.Sexo to oSexoTablaPadre
+        Set Field_Value_Table Field tablapadre.Sexo to oSexoValidation
+
     End_Procedure
 
 End_Class

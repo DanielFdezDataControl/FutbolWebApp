@@ -37,7 +37,7 @@ Object oSelectJugadorPosicion is a cWebView
     End_Object
     
     Set Main_DD to oJugadorPosicionDD
-    Set Server to oJugadorPosicionDD
+    Set Server  to oJugadorPosicionDD
     
     Set peWebViewStyle to wvsDrillDown
     Set peViewType to vtSelect
@@ -95,24 +95,25 @@ Object oSelectJugadorPosicion is a cWebView
         Procedure OnClick
             String sCurRi
             RowID riCurRi
-            Integer iPosicionID, iJugadorID, iTempJugID, iTempPosID
+            Integer iPosicionID iJugadorID iTempJugID iTempPosID iPosicionIDprueba iPosicionIDpruebaFileBuffer iPosicionJugadorPrueba iJugadorIDprueba
             Boolean bFound
 
-            Get Field_Current_Value of oPosicionesTotalesDD Field posicion.ID to iPosicionID
+            Get Field_Current_Value of oPosicionesTotalesDD Field posicion.ID to iPosicionID                        
             Get Field_Current_Value of oJugadorDD           Field jugador.ID  to iJugadorID
                         
             Send Request_Clear  of oJugadorPosicionDD
+
             Move iPosicionID    to jugadorposicion.PosicionID
             Move iJugadorID     to jugadorposicion.JugadorID 
             Send Request_Find   of oJugadorPosicionDD EQ jugadorposicion.File_Number 2
-            Move Found          to bFound
-            
+            Move Found          to bFound         
             If (bFound) Begin
                 Send ShowInfoBox "Posición ya asignada"
             End
             Else Begin                                
                 Send Request_Clear of oPosicionDD
                 Move iPosicionID to posicion.ID
+                Set Field_Current_Value of oPosicionDD Field posicion.ID to iPosicionID
                 Send Request_Find of oPosicionDD EQ posicion.File_Number 1
                 Move Found to bFound
                 If (bFound) ;                                               
@@ -126,6 +127,7 @@ Object oSelectJugadorPosicion is a cWebView
     End_Object
     
     Object oPosicionesJugador_List is a cWebList
+        //Set Server to oJugadorPosicionDD
         Set pbFillHeight to True
         Set piColumnSpan to 4
         Set piColumnIndex to 8

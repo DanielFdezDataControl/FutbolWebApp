@@ -1,0 +1,20 @@
+﻿/*
+para el jueves 23/04
+hacer un pkg con una funcion o procedimeinto o las que sean necesarias o lo q haga falta para q en las vistas q queramos se Use y 
+no me permita crear un nuevo elemento si no soy admin 
+o 
+no me permita modificar un elemento existente.
+*/ 
+
+Procedure mostrarMensaje Global String sMensaje
+    
+    Send ShowInfoBox sMensaje "Este es el mensaje:"
+    
+End_Procedure
+
+Function ControlEdicion Global Returns Boolean
+    Integer iUserRights
+    
+    Get piUserRights of ghoWebSessionManager to iUserRights
+    Function_Return (iUserRights = 7)
+End_Function

@@ -7,8 +7,10 @@ Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
 Use cWebColumnButton.pkg
+
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
+Use centrenadorDataDictionary.dd
 
 Object oSelectEquipo is a cWebView
 
@@ -18,6 +20,10 @@ Object oSelectEquipo is a cWebView
     
     Object oEquipoDD is a cequipoDataDictionary
         Set DDO_Server to oLigaDD
+    End_Object
+    
+    Object oEntrenadorDD is a centrenadorDataDictionary
+        Set DDO_Server to oEquipoDD
     End_Object
     
     Set Main_DD to oEquipoDD
@@ -55,6 +61,23 @@ Object oSelectEquipo is a cWebView
             Set peAlign to alignLeft
         End_Object 
         
+        Object oEntrenadorName_Col is a cWebColumn
+            Set psCaption to "Entrenador"
+            Set peAlign to alignLeft
+
+            Procedure OnSetCalculatedValue String  ByRef sValue
+                Forward Send OnSetCalculatedValue (&sValue)
+                Integer iEquipoID
+                Get Field_Current_Value of oEquipoDD Field equipo.ID to iEquipoID
+                Move iEquipoID to entrenador.EquipoID
+                Send Request_Read of oEntrenadorDD EQ entrenador.File_Number 2
+                If (Found) ;
+                    Move (entrenador.Nombre * entrenador.Apellido) to sValue
+                Else ;
+                    Move "Sin Entrenador" to sValue
+            End_Procedure          
+        End_Object         
+                
         // sample of a right-aligned info column button
         Object oDetailButton is a cWebColumnButton
             Set piWidth to 45
@@ -72,8 +95,18 @@ Object oSelectEquipo is a cWebView
 
             Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
                 Move True to NavigateData.bReadOnly
+                
+                //------
+                Get NamedValueAdd NavigateData.NamedValues "fromMain" "oSelectEquipo" to NavigateData.NamedValues
+            End_Procedure            
+            
+            Procedure OnNavigateBack Handle hoCallback tWebNavigateData NavigateData
+                Forward Send OnNavigateBack hoCallback NavigateData
+        
+                String sViewBack
+                Get NamedValueGet NavigateData.NamedValues "fromZoom" to sViewBack
+                Send ShowInfoBox sViewBack "NavigateType:"
             End_Procedure
-
         End_Object 
 
         // What to do when the row is selected.
@@ -207,14 +240,22 @@ Object oSelectEquipo is a cWebView
         // if this view is being used in multiple contexts, you may need a block of code
         // like this to handle customizations. This would include hiding rows and buttons
         // (WebSet pbRender) and changing the values of various captions.
+        WebSet pbRender of oEntrenadorName_Col  to False
+        WebSet pbRender of oLigaName_Col        to False
         Case Begin
             Case (NavigateData.eNavigateType=nfFromParent)
                 // If from parent, this is a constrained drill down.
                 // If needed you could check NavigateData.iTable to determine the constraining parent.
+                
+                // from oZoomLiga
+                WebSet pbRender of oLigaName_Col                to True 
                 Case Break
                 
             Case (NavigateData.eNavigateType=nfFromChild)
                 // If from child, this is a probably a parent lookup from a Zoom
+                
+                // from oZoomEntrenador
+                        WebSet pbRender of oEntrenadorName_Col  to True
                 Case Break
                 
             Case (NavigateData.eNavigateType=nfFromMain)
@@ -225,12 +266,13 @@ Object oSelectEquipo is a cWebView
             Case Else // must be nfUndefined
                 // This may be the start of a drilldown query or some kind ofcustom query.
                 // You may want to check NavigateData.NamedValues.
+                WebSet pbRender of oEntrenadorName_Col          to True
+                WebSet pbRender of oLigaName_Col                to True
                   
         Case End
         
         Send SetBreadcrumbCaption "Equipos Selección"
         Send SetHeaderCaption     "Equipos"
         
-    End_Procedure
-
+    End_Procedure    
 End_Object
