@@ -3,3 +3,4 @@
 #REPLACE tablapadre.ID |FN11,1
 #REPLACE tablapadre.Name |FS11,2
 #REPLACE tablapadre.Sexo |FS11,3
+#REPLACE tablapadre.AbueloID |FN11,4

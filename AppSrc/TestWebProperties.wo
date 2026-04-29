@@ -4,14 +4,15 @@ Use cWebForm.pkg
 Use cWebButton.pkg
 
 Object oTestWebProperties is a cWebView
-    Set piWidth to 700
+    Set piWidth to 600
     Set psCaption to "TestWebProperties"
+    Set pbShowCaption to True
     
     {WebProperty = Client}
     Property String psValue_Client "Cliente valor 0"
     
     {WebProperty = Server}
-    Property String psValue_Server "Servidor valor 0 "
+    Property String psValue_Server "Servidor valor 0"
     
     {WebProperty = ServerSession}
     Property String psValue_ServerSession "SSesion valor 0"
@@ -45,6 +46,7 @@ Object oTestWebProperties is a cWebView
             
                 Procedure OnClick
                     Integer iValue
+                    
                     WebGet psValue of oForm to iValue
                     Increment iValue
                     WebSet psValue of oForm to iValue
@@ -88,7 +90,8 @@ Object oTestWebProperties is a cWebView
                     Decrement iValue
                     Set psValue of oForm to iValue
                 End_Procedure
-            End_Object            
+            End_Object 
+                      
         End_Object // oGroupWebProperties_Group
         
         Object oGroupCustomWebProps_Group is a cWebGroup
@@ -98,6 +101,7 @@ Object oTestWebProperties is a cWebView
             Set pbShowBorder    to True
             Set pbShowCaption   to True
             Set psCaption       to "Grupo Custom WebProperties" 
+            Set pbRender        to True
                       
             Object oPropertyClient_Form is a cWebForm
                 Set piColumnSpan to 6
@@ -227,6 +231,7 @@ Object oTestWebProperties is a cWebView
         
         WebGet psValue_ServerSession of oTestWebProperties  to sValue
         WebSet psValue of oPropertyServerSession_Form       to sValue
+        
     End_Procedure
 
 End_Object // webview

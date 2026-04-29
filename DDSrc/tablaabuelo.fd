@@ -1,0 +1,5 @@
+#REPLACE FILE15 tablaabuelo
+#REPLACE tablaabuelo.File_Number |CI15
+#REPLACE tablaabuelo.ID |FN15,1
+#REPLACE tablaabuelo.Name |FS15,2
+#REPLACE tablaabuelo.Sexo |FS15,3

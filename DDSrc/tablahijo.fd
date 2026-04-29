@@ -3,3 +3,4 @@
 #REPLACE tablahijo.ID |FN10,1
 #REPLACE tablahijo.Name |FS10,2
 #REPLACE tablahijo.PadreID |FN10,3
+#REPLACE tablahijo.MadreID |FN10,4

@@ -1,0 +1,14 @@
+[C:\Program Files\DataFlex 25.0\Pkg\cWebResourceManager.pkg]
+Source171=Get ValidateSession of ghoWebSessionManager sSessionKey to bRes
+ConditionEnabled171=0
+Condition171= 
+171=1
+Source289=Get ValidateSession of ghoWebSessionManager sSessionKey to bRes
+ConditionEnabled289=0
+Condition289= 
+289=1
+[C:\Program Files\DataFlex 25.0\Pkg\cWebSessionHost_mixin.pkg]
+Source191=Get ValidateSession of ghoWebSessionManager sSessionKey to bValidSession
+ConditionEnabled191=0
+Condition191= 
+191=1

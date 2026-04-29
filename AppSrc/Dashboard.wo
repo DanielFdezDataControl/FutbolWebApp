@@ -26,10 +26,9 @@ Object oDashboard is a cWebView
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
     Set piMaxWidth to 1024
-    
     Set psCaption to "Inicio"
     Set peViewType to vtUndefined
-    Set pbShowCaption to False
+    Set pbShowCaption to True
     Set psCSSClass to "Dashboard"
 	
 	Object oActionGroup is a cWebMenuGroup
@@ -60,6 +59,7 @@ Object oDashboard is a cWebView
             //------
             // Primera línea
             //------
+            
             Object oGrupoPrincipal_Group is a cWebGroup
 			Set piColumnIndex   to 0					  
             Set piColumnSpan    to 24
@@ -150,7 +150,7 @@ Object oDashboard is a cWebView
                         Send NavigatePath
                     End_Procedure
                     
-                End_Object
+                End_Object               
                 
                 Object oWebTile_ContextMenu is a cWebContextMenu 
                 End_Object

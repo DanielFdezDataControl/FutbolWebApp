@@ -12,25 +12,33 @@ Use ZoomTablaHijo.wo
 
 Use ctablapadreDataDictionary.dd
 Use ctablahijoDataDictionary.dd
+Use tablaabuelo.dd
+
 
 Object oSelectTablaHijo is a cWebView
+
     Set psCaption to "SelectTablaHijo"
     Set peWebViewStyle to wvsDrilldown
     Set peViewType to vtSelect
     Set piColumnCount to 12
     Set pbShowCaption to False
     Set piMaxWidth to 1024
+    
+    //------
+    Object otablaabuelo_DD is a tablaabuelo_DataDictionary
+    End_Object
 
     Object otablapadre_DD is a ctablapadreDataDictionary
-    End_Object 
+        Set DDO_Server to otablaabuelo_DD
+    End_Object
 
     Object otablahijo_DD is a ctablahijoDataDictionary
-        Set DDO_Server To otablapadre_DD
-    End_Object 
+        Set DDO_Server to otablapadre_DD
+    End_Object
 
-    Set Main_DD To otablahijo_DD
-    Set Server  To otablahijo_DD
-
+    Set Main_DD to otablahijo_DD
+    Set Server to otablahijo_DD
+    //------
 
     Object oList is a cWebList
         Set piColumnSpan to 0
@@ -42,15 +50,18 @@ Object oSelectTablaHijo is a cWebView
 
         Object otablahijoName is a cWebColumn
             Entry_Item tablahijo.Name
-            Set psCaption to "Name"
-            Set piWidth to 1000
+            Set psCaption to "Hijo"
         End_Object 
 
         Object otablapadreName is a cWebColumn
             Entry_Item tablapadre.Name
-            Set psCaption to "TablaPadre Name"
-            Set piWidth to 1000
+            Set psCaption to "Padre"
         End_Object 
+        
+        Object otablaAbueloName is a cWebColumn
+            Entry_Item tablaabuelo.Name
+            Set psCaption to "Abuelo Paterno"
+        End_Object           
 
         Object oDetailButton is a cWebColumnButton
             Set psCaption to "btn"
@@ -156,7 +167,7 @@ Object oSelectTablaHijo is a cWebView
             Case Else // must be nfUndefined
                 // This may be the start of a drilldown query or this may be used for some kind of custom query.
                 // If Row select does main-zoom we don't need this
-                WebSet pbRender of oDetailButton to False
+                WebSet pbRender of oDetailButton to True
 
         Case End
         

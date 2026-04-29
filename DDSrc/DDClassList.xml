@@ -156,6 +156,17 @@
 			</DDClasses>
 		</Table>
 		<Table>
+			<tableNumber>15</tableNumber>
+			<tableName>tablaabuelo</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>tablaabuelo_DataDictionary</className>
+					<classFile>tablaabuelo.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
 			<tableNumber>263</tableNumber>
 			<tableName>WebAppSession</tableName>
 			<DDClasses>
