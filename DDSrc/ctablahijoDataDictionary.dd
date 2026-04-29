@@ -2,6 +2,7 @@
 
 Open tablahijo
 Open tablapadre
+Open tablamadre
 
 Class ctablahijoDataDictionary is a DataDictionary
     
@@ -9,23 +10,29 @@ Class ctablahijoDataDictionary is a DataDictionary
         Forward Send Construct_Object
         Set Main_File to tablahijo.File_Number
         
+        Set Key_Field_State Field tablahijo.ID to True
+        
+        
         //------
         // relación soft con tabla padre        
         Set Add_Server_File to tablapadre.File_Number
+        Set Add_Server_File to tablamadre.File_Number
 
         Set ParentNullAllowed tablapadre.File_Number to True
+        Set ParentNullAllowed tablamadre.File_Number to True
         //------
 
-        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT to True
-        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ to True
-        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT to True
-        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT       to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ     to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT     to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY  to True
 
     End_Procedure
 
     Procedure Field_Defaults
         Forward Send Field_Defaults
         Set Field_Changed_Value Field tablahijo.PadreID to 0
+        Set Field_Changed_Value Field tablahijo.MadreID to 0
     End_Procedure
 
 End_Class

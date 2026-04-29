@@ -1,0 +1,6 @@
+#REPLACE FILE16 tablamadre
+#REPLACE tablamadre.File_Number |CI16
+#REPLACE tablamadre.ID |FN16,1
+#REPLACE tablamadre.Name |FS16,2
+#REPLACE tablamadre.Sexo |FS16,3
+#REPLACE tablamadre.AbueloID |FN16,4

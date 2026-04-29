@@ -1,0 +1,24 @@
+﻿Use tablaabuelo.dd
+
+Open tablaAbueloForMadre
+Open tablamadre
+
+Set_Attribute DF_FILE_ALIAS of tablaAbueloForMadre.File_Number to DF_FILE_IS_ALIAS
+
+Class tablaAbueloForMadre_DataDictionary is a tablaabuelo_DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        
+        Set Alias_File to tablaAbueloForMadre.File_Number
+        
+        Set pbForeignReadOnly       to True
+        Set pbUseDDRelates          to True
+        Set pbNoCascadeDeleteStrict to True
+        
+        //------
+        Set Add_Client_File to tablamadre.File_Number
+    End_Procedure
+
+    
+End_Class

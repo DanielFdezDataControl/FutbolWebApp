@@ -1,0 +1,32 @@
+﻿Use DataDict.pkg
+
+Open tablamadre
+Open tablahijo
+Open tablaAbueloForMadre
+
+Class tablamadre_DataDictionary is a DataDictionary
+    
+    Procedure Construct_Object
+        Forward Send Construct_Object
+        Set Main_File to tablamadre.File_Number
+
+        Set Key_Field_State Field tablamadre.ID to True
+        
+        Set Add_Server_File      to tablaAbueloForMadre.File_Number
+        Set ParentNullAllowed       tablaAbueloForMadre.File_Number to True        
+        //------
+        Set Add_Client_File to tablahijo.File_Number
+        //------
+        Set Foreign_Field_Option DD_KEYFIELD DD_NOPUT       to True
+        Set Foreign_Field_Option DD_KEYFIELD DD_FINDREQ     to True
+        Set Foreign_Field_Option DD_INDEXFIELD DD_NOPUT     to True
+        Set Foreign_Field_Option DD_DEFAULT DD_DISPLAYONLY  to True
+
+    End_Procedure
+
+    Procedure Field_Defaults
+        Forward Send Field_Defaults
+        Set Field_Changed_Value Field tablamadre.AbueloID to 0
+    End_Procedure
+
+End_Class

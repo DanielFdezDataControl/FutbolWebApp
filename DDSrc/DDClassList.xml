@@ -167,6 +167,28 @@
 			</DDClasses>
 		</Table>
 		<Table>
+			<tableNumber>16</tableNumber>
+			<tableName>tablamadre</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>tablamadre_DataDictionary</className>
+					<classFile>tablamadre.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
+			<tableNumber>17</tableNumber>
+			<tableName>tablaAbueloForMadre</tableName>
+			<DDClasses>
+				<DDClass>
+					<className>tablaAbueloForMadre_DataDictionary</className>
+					<classFile>tablaAbueloForMadre.dd</classFile>
+					<preferred>true</preferred>
+				</DDClass>
+			</DDClasses>
+		</Table>
+		<Table>
 			<tableNumber>263</tableNumber>
 			<tableName>WebAppSession</tableName>
 			<DDClasses>

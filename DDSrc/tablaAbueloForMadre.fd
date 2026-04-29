@@ -1,0 +1,5 @@
+#REPLACE FILE17 tablaAbueloForMadre
+#REPLACE tablaAbueloForMadre.File_Number |CI17
+#REPLACE tablaAbueloForMadre.ID |FN17,1
+#REPLACE tablaAbueloForMadre.Name |FS17,2
+#REPLACE tablaAbueloForMadre.Sexo |FS17,3

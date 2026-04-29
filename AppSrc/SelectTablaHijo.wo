@@ -13,6 +13,8 @@ Use ZoomTablaHijo.wo
 Use ctablapadreDataDictionary.dd
 Use ctablahijoDataDictionary.dd
 Use tablaabuelo.dd
+Use tablaAbueloForMadre.dd
+Use tablamadre.dd
 
 
 Object oSelectTablaHijo is a cWebView
@@ -25,6 +27,13 @@ Object oSelectTablaHijo is a cWebView
     Set piMaxWidth to 1024
     
     //------
+    Object otablaAbueloForMadre_DD is a tablaAbueloForMadre_DataDictionary
+    End_Object
+
+    Object otablamadre_DD is a tablamadre_DataDictionary
+        Set DDO_Server to otablaAbueloForMadre_DD
+    End_Object
+
     Object otablaabuelo_DD is a tablaabuelo_DataDictionary
     End_Object
 
@@ -33,20 +42,22 @@ Object oSelectTablaHijo is a cWebView
     End_Object
 
     Object otablahijo_DD is a ctablahijoDataDictionary
+        Set DDO_Server to otablamadre_DD
         Set DDO_Server to otablapadre_DD
     End_Object
 
     Set Main_DD to otablahijo_DD
     Set Server to otablahijo_DD
+
     //------
 
     Object oList is a cWebList
-        Set piColumnSpan to 0
-        Set psCSSClass to "MobileList"
-        Set pbServerOnRowClick to True
-        Set pbFillHeight to True
-        Set pbShowHeader to False
-        Set piSortColumn to 0
+        Set piColumnSpan        to 0
+        Set psCSSClass          to "MobileList"
+        Set pbServerOnRowClick  to True
+        Set pbFillHeight        to True
+        Set pbShowHeader        to True
+        Set piSortColumn        to 0
 
         Object otablahijoName is a cWebColumn
             Entry_Item tablahijo.Name
@@ -62,6 +73,16 @@ Object oSelectTablaHijo is a cWebView
             Entry_Item tablaabuelo.Name
             Set psCaption to "Abuelo Paterno"
         End_Object           
+
+        Object otablaMadreName is a cWebColumn
+            Entry_Item tablamadre.Name
+            Set psCaption to "Madre"
+        End_Object 
+        
+        Object otablaAbueloMadreName is a cWebColumn
+            Entry_Item tablaAbueloForMadre.Name
+            Set psCaption to "Abuelo Materno"
+        End_Object 
 
         Object oDetailButton is a cWebColumnButton
             Set psCaption to "btn"
